@@ -25,4 +25,4 @@ Users can also view their order history and update their account information.
 ## Hosting
 Vercel
 
-**Author:** (Vinayak)[https://github.com/vinayak746/]
+**Author:** [Vinayak](https://github.com/vinayak746/)
