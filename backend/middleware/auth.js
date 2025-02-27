@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-const adminAuth = (req, res, next) => {
+const authUser = async (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
@@ -15,9 +15,6 @@ const adminAuth = (req, res, next) => {
 
   try {
     const token_decode = jwt.verify(token, process.env.JWT_SECRET);
-    if (token_decode.role !== 'admin') {
-      return res.status(403).json({ success: false, message: "Access denied" });
-    }
     req.body.userId = token_decode.id;
     next();
   } catch (error) {
@@ -26,4 +23,4 @@ const adminAuth = (req, res, next) => {
   }
 };
 
-export default adminAuth;
+export default authUser;
