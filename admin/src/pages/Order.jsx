@@ -17,7 +17,6 @@ const Order = ({ token }) => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       if (response.data.success) {
-        // await fetchAllOrders();
         setOrders(response.data.orders);
       } else {
         toast.error(response.data.message);
