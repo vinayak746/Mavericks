@@ -15,6 +15,7 @@ const adminAuth = (req, res, next) => {
 
   try {
     const token_decode = jwt.verify(token, process.env.JWT_SECRET);
+    console.log(token_decode);
     if (token_decode.role !== 'admin') {
       return res.status(403).json({ success: false, message: "Access denied" });
     }

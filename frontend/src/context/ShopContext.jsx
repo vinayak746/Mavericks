@@ -4,21 +4,21 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 export const ShopContext = createContext();
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const ShopContextProvider = (props) => {
-  const currency = '₹';
+  const currency = "₹";
   const delivery_fee = 10;
-  const backendUrl = import.meta.env.VITE_BACKEND_URL;
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [cartItems, setCartItems] = useState({});
   const [products, setProducts] = useState([]);
-  const [token, setToken] = useState(localStorage.getItem('token') || '');
+  const [token, setToken] = useState(localStorage.getItem("token") || "");
   const navigate = useNavigate();
 
   const addToCart = async (itemId, size) => {
     if (!size) {
-      toast.error('Please select the product size');
+      toast.error("Please select the product size");
       return;
     }
 
@@ -37,11 +37,15 @@ const ShopContextProvider = (props) => {
 
     if (token) {
       try {
-        await axios.post(backendUrl + '/api/cart/add', { itemId, size }, {
-          headers: {
-            Authorization: `Bearer ${token}`
+        await axios.post(
+          backendUrl + "/api/cart/add",
+          { itemId, size },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
-        });
+        );
       } catch (error) {
         console.log(error);
         toast.error(error.message);
@@ -72,11 +76,15 @@ const ShopContextProvider = (props) => {
 
     if (token) {
       try {
-        await axios.post(backendUrl + '/api/cart/update', { itemId, size, quantity }, {
-          headers: {
-            Authorization: `Bearer ${token}`
+        await axios.post(
+          backendUrl + "/api/cart/update",
+          { itemId, size, quantity },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
-        });
+        );
       } catch (error) {
         console.log(error);
         toast.error(error.message);
@@ -118,9 +126,13 @@ const ShopContextProvider = (props) => {
   const getUserCart = async (token) => {
     console.log("Fetching user cart with token:", token);
     try {
-      const response = await axios.post(backendUrl + '/api/cart/get', {}, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      const response = await axios.post(
+        backendUrl + "/api/cart/get",
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       console.log("User cart response:", response.data);
       if (response.data.success) {
         setCartItems(response.data.cartData);
@@ -145,17 +157,27 @@ const ShopContextProvider = (props) => {
   }, [token]);
 
   const value = {
-    products, currency, delivery_fee, search,
-    setSearch, showSearch, setShowSearch,
-    cartItems, addToCart,setCartItems, getCartCount,
-    updateQuantity, getCartAmount, navigate, backendUrl,
-    setToken, token
+    products,
+    currency,
+    delivery_fee,
+    search,
+    setSearch,
+    showSearch,
+    setShowSearch,
+    cartItems,
+    addToCart,
+    setCartItems,
+    getCartCount,
+    updateQuantity,
+    getCartAmount,
+    navigate,
+    backendUrl,
+    setToken,
+    token,
   };
 
   return (
-    <ShopContext.Provider value={value}>
-      {props.children}
-    </ShopContext.Provider>
+    <ShopContext.Provider value={value}>{props.children}</ShopContext.Provider>
   );
 };
 

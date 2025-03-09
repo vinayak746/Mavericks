@@ -12,7 +12,7 @@ const placeOrder = async (req, res) => {
       amount,
       paymentMethod: "COD",
       payment: false,
-      date: Date.now()
+      date: Date.now(),
     };
 
     const newOrder = new orderModel(orderData);
@@ -40,22 +40,26 @@ const placeOrderRazorpay = async (req, res) => {
 // all orders data for Admin Panel
 const allOrders = async (req, res) => {
   // Implementation for fetching all orders
+  try {
+    const orders = await orderModel.find({});
+    res.json({ success: true, orders });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
 };
 
 // User Orders data for Frontend
 const userOrders = async (req, res) => {
   // Implementation for fetching user orders
   try {
-
     const { userId } = req.body;
 
     const orders = await orderModel.find({ userId });
     res.json({ success: true, orders });
-    
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
-    
   }
 };
 
@@ -64,4 +68,11 @@ const updateStatus = async (req, res) => {
   // Implementation for updating order status
 };
 
-export { placeOrder, placeOrderStripe, placeOrderRazorpay, allOrders, userOrders, updateStatus };
+export {
+  placeOrder,
+  placeOrderStripe,
+  placeOrderRazorpay,
+  allOrders,
+  userOrders,
+  updateStatus,
+};
