@@ -8,7 +8,7 @@ const currency = "INR";
 const deliveryCharge = 10;
 
 // gateway initialization
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {});
 
 // placing orders using COD method
 const placeOrder = async (req, res) => {
