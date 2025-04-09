@@ -11,8 +11,7 @@ const Footer = () => {
             <img src={assets.logo} alt="logo" className=" mb-5 w-32" />
           </Link>
           <p className="w-full md:2/3 text-gray-600">
-            Vinayak the lord hahahah hahahha i don't know what to write here so
-            i am just writing anything that comes to my mind
+            Mavericks is a leading online shopping platform that offers a
           </p>
         </div>
         <div>
