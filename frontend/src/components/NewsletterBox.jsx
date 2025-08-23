@@ -1,9 +1,11 @@
 import React from "react";
+import { toast } from "react-toastify";
 
 const NewsletterBox = () => {
   // developer note hahaha i am calling myself a developer ha so i am injoying myself making this so yeah lets see some time later
   const onSubmitHandler = (event) => {
     event.preventDefault();
+    toast.success("Subscribed to newsletter successfully");
   };
 
   return (
