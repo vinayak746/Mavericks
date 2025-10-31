@@ -114,11 +114,31 @@ const ShopContextProvider = (props) => {
       const response = await axios(`${backendUrl}/api/products/list`);
       if (response.data.success) {
         setProducts(response.data.products);
+        try {
+          // Cache the products list in localStorage so we can show them when offline
+          localStorage.setItem(
+            "products_cache",
+            JSON.stringify(response.data.products)
+          );
+        } catch (err) {
+          console.log("Failed to cache products in localStorage:", err);
+        }
       } else {
         toast.error(response.data.message);
       }
     } catch (error) {
       console.log(error);
+      // Try to load products from localStorage when network is unavailable
+      try {
+        const cached = localStorage.getItem("products_cache");
+        if (cached) {
+          setProducts(JSON.parse(cached));
+          toast.info("Loaded products from cache (offline)");
+          return;
+        }
+      } catch (err) {
+        console.log("Failed to read products_cache:", err);
+      }
       toast.error(error.message);
     }
   };

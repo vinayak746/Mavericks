@@ -1,0 +1,5 @@
+// Backup of the custom service worker (moved to allow vite-plugin-pwa to generate its own SW)
+// Original contents are kept here in case you want to restore or merge any logic.
+/*
+<original sw.js content backed up>
+*/
