@@ -37,7 +37,13 @@ export function updateQuantityLocal(cartItems, itemId, size, quantity) {
   return cartData;
 }
 
-export async function updateQuantityRemote(backendUrl, token, itemId, size, quantity) {
+export async function updateQuantityRemote(
+  backendUrl,
+  token,
+  itemId,
+  size,
+  quantity
+) {
   if (!token) return;
   try {
     await axios.post(
@@ -62,7 +68,12 @@ export async function syncCartToServer(cart, backendUrl, token) {
           { headers: { Authorization: `Bearer ${token}` } }
         );
       } catch (err) {
-        console.log("syncCartToServer failed for", itemId, size, err?.message || err);
+        console.log(
+          "syncCartToServer failed for",
+          itemId,
+          size,
+          err?.message || err
+        );
       }
     }
   }

@@ -9,7 +9,13 @@ import {
   removePendingOrderAt,
 } from "./orderUtils";
 import { computeCartCount, computeCartAmount, mergeCarts } from "./cartUtils";
-import { addToCartLocal, addToCartRemote, updateQuantityLocal, updateQuantityRemote, syncCartToServer as syncCartService } from "./cartService";
+import {
+  addToCartLocal,
+  addToCartRemote,
+  updateQuantityLocal,
+  updateQuantityRemote,
+  syncCartToServer as syncCartService,
+} from "./cartService";
 
 export const ShopContext = createContext();
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
