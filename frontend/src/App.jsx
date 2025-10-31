@@ -12,6 +12,7 @@ import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
 import SearchBar from "./components/SearchBar.jsx";
 import InstallPrompt from "./components/InstallPrompt.jsx";
+import OfflineIndicator from "./components/OfflineIndicator.jsx";
 import { ToastContainer, toast } from "react-toastify";
 import Login from "./pages/Login.jsx";
 
@@ -21,6 +22,7 @@ const App = () => {
       <ToastContainer />
       <Navbar />
       <SearchBar />
+      <OfflineIndicator />
       <InstallPrompt />
       <Routes>
         <Route path="/" element={<Home />} />

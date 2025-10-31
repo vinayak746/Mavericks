@@ -17,6 +17,7 @@ const PlaceOrder = () => {
     getCartAmount,
     delivery_fee,
     products,
+    placeOrder,
   } = useContext(ShopContext);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -65,44 +66,8 @@ const PlaceOrder = () => {
         amount: getCartAmount() + delivery_fee,
       };
       console.log("Order data:", orderData);
-      switch (method) {
-        // API calls for COD
-        case "cod":
-          const response = await axios.post(
-            backendUrl + "/api/order/place",
-            orderData,
-            { headers: { Authorization: `Bearer ${token}` } }
-          );
-          console.log("Response data:", response.data);
-          if (response.data.success) {
-            setCartItems({});
-            navigate("/orders");
-          } else {
-            toast.error(response.data.message);
-          }
-          break;
-
-        // API calls for Stripe
-        case "stripe":
-          console.log("Stripe payment method selected");
-
-          const responseStripe = await axios.post(
-            backendUrl + "/api/order/stripe",
-            orderData,
-            { headers: { Authorization: `Bearer ${token}` } }
-          );
-          console.log("Stripe response data:", responseStripe.data);
-          if (responseStripe.data.success) {
-            const { session_url } = responseStripe.data;
-            window.location.replace(session_url);
-          } else {
-            toast.error(responseStripe.data.message);
-          }
-          break;
-
-        default:
-          break;
-      }
+      // Delegate to context handler which supports offline queuing for COD
+      await placeOrder(orderData, method);
     } catch (error) {
       console.error("Error placing order:", error);
       toast.error(error.message);
