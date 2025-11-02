@@ -1,14 +1,16 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { ShopContext } from "../context/ShopContext.jsx";
 import Title from "../components/Title.jsx";
 import { assets } from "../assets/assets.js";
 import CartTotal from "../components/CartTotal.jsx";
+import { toast } from "react-toastify";
 
 const Cart = () => {
   const { products, currency, cartItems, updateQuantity, navigate } =
     useContext(ShopContext);
 
   const [cartData, setCartData] = useState([]);
+  const prevCountRef = useRef(null);
   useEffect(() => {
     if (products.length > 0) {
       const tempData = [];
@@ -26,6 +28,39 @@ const Cart = () => {
       setCartData(tempData);
     }
   }, [cartItems, products]);
+
+  // Show a toast when cart transitions from empty (0) to non-empty (>0)
+  useEffect(() => {
+    // compute total items in nested cartItems structure
+    let currentCount = 0;
+    for (const pid in cartItems) {
+      if (!Object.prototype.hasOwnProperty.call(cartItems, pid)) continue;
+      const sizes = cartItems[pid] || {};
+      for (const size in sizes) {
+        if (!Object.prototype.hasOwnProperty.call(sizes, size)) continue;
+        const qty = Number(sizes[size]) || 0;
+        currentCount += qty;
+      }
+    }
+
+    if (prevCountRef.current === null) {
+      // initialize previous count on first run; don't show toast on initial mount
+      prevCountRef.current = currentCount;
+      console.log("Cart effect init: currentCount=", currentCount);
+    } else {
+      console.log(
+        "Cart effect: prevCount=",
+        prevCountRef.current,
+        "currentCount=",
+        currentCount
+      );
+      if (prevCountRef.current === 0 && currentCount > 0) {
+        console.log("Cart effect -> firing toast");
+        toast.success("Product has been added to the cart");
+      }
+      prevCountRef.current = currentCount;
+    }
+  }, [cartItems]);
   return (
     <div className="border-t pt-14">
       <div className="text-2xl mb-3">

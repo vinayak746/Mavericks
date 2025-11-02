@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -33,6 +33,7 @@ const ShopContextProvider = (props) => {
     typeof navigator !== "undefined" ? navigator.onLine : true
   );
   const navigate = useNavigate();
+  const cartUpdatedInitialized = useRef(false);
 
   const addToCart = async (itemId, size) => {
     if (!size) {
@@ -40,8 +41,22 @@ const ShopContextProvider = (props) => {
       return;
     }
     // local update immediately
+    const prevCount = computeCartCount(cartItems);
     const cartData = addToCartLocal(cartItems, itemId, size);
     setCartItems(cartData);
+    const newCount = computeCartCount(cartData);
+    if (prevCount === 0 && newCount > 0) {
+      console.log(
+        "addToCart: prevCount=",
+        prevCount,
+        "newCount=",
+        newCount,
+        "-> firing toast"
+      );
+      toast.success("Product has been added to the cart");
+    } else {
+      console.log("addToCart: prevCount=", prevCount, "newCount=", newCount);
+    }
     // try to update server if we have token
     if (token) {
       try {
@@ -159,6 +174,20 @@ const ShopContextProvider = (props) => {
       localStorage.setItem("cart_local", JSON.stringify(cartItems));
     } catch (err) {
       console.log("Failed to write cart_local:", err);
+    }
+  }, [cartItems]);
+
+  // Show a toast whenever the cart updates (skip initial load)
+  useEffect(() => {
+    if (!cartUpdatedInitialized.current) {
+      cartUpdatedInitialized.current = true;
+      return;
+    }
+    // Generic cart update toast
+    try {
+      toast.info("Cart updated");
+    } catch (err) {
+      console.log("Failed to show cart update toast:", err);
     }
   }, [cartItems]);
 

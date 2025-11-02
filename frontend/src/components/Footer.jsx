@@ -11,7 +11,8 @@ const Footer = () => {
             <img src={assets.logo} alt="logo" className=" mb-5 w-32" />
           </Link>
           <p className="w-full md:2/3 text-gray-600">
-            Mavericks is a leading online shopping platform that offers a
+            Mavericks is a leading online shopping platform that offers a wide
+            range of products at competitive prices.
           </p>
         </div>
         <div>
@@ -24,10 +25,14 @@ const Footer = () => {
               <Link to="/About">About us</Link>
             </li>
             <li>
-              <Link to="Delivery">Delivery</Link>
+              <Link to="Delivery" className="pointer-events-none">
+                Delivery
+              </Link>
             </li>
             <li>
-              <Link to="Privacy_policy">Privacy policy</Link>
+              <Link to="Privacy_policy" className="pointer-events-none">
+                Privacy policy
+              </Link>
             </li>
           </ul>
         </div>

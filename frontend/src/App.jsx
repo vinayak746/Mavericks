@@ -14,6 +14,7 @@ import SearchBar from "./components/SearchBar.jsx";
 import InstallPrompt from "./components/InstallPrompt.jsx";
 import OfflineIndicator from "./components/OfflineIndicator.jsx";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Login from "./pages/Login.jsx";
 
 const App = () => {
