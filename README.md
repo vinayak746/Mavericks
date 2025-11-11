@@ -25,8 +25,7 @@ Watch the product demo video here:
 
 Inline preview (HTML5 video player on GitHub-compatible viewers):
 
-<video src="https://raw.githubusercontent.com/vinayak746/Mavericks/main/frontend/public/mavericks_video_new.mp4" controls autoplay muted loop playsinline width="720" poster="frontend/public/mavericks-home.png">
-   Your browser does not support the video tag.
+<video src="https://raw.githubusercontent.com/vinayak746/Mavericks/main/frontend/public/mavericks_video_new.mp4" autoplay loop muted playsinline controls style="width:100%;max-width:800px;">   Your browser does not support the video tag.
    <a href="https://raw.githubusercontent.com/vinayak746/Mavericks/main/frontend/public/mavericks_video_new.mp4">Watch the demo</a>
 </video>
 
