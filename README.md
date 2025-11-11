@@ -19,15 +19,8 @@ A full-featured e-commerce platform built with modern web technologies, offering
 
 ## Demo
 
-Watch the product demo video here:
 
-- ▶️ Video: [Watch the demo](https://raw.githubusercontent.com/vinayak746/Mavericks/main/frontend/public/mavericks_video_new.mp4)
-
-Inline preview (HTML5 video player on GitHub-compatible viewers):
-
-<video src="https://raw.githubusercontent.com/vinayak746/Mavericks/main/frontend/public/mavericks_video_new.mp4" autoplay loop muted playsinline controls style="width:100%;max-width:800px;">   Your browser does not support the video tag.
-   <a href="https://raw.githubusercontent.com/vinayak746/Mavericks/main/frontend/public/mavericks_video_new.mp4">Watch the demo</a>
-</video>
+https://github.com/user-attachments/assets/58e664af-b63f-4d46-8277-5212377da472
 
 ### Screenshots
 
